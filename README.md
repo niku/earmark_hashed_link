@@ -1,21 +1,31 @@
 # EarmarkHashedLink
 
-**TODO: Add description**
+It adds link to hashed text in a markdown using Earmark's [AST feature](https://github.com/pragdave/earmark#earmarkas_ast2).
+It doesn't only add but also switch behavior in its context (e.g. It doesn't add link to text in a code tag).
+
+Status: **EXPERIMENTAL**
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `earmark_hashed_link` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:earmark_hashed_link, "~> 0.1.0"}
+    {:earmark_hashed_link, github: "niku/earmark_hashed_link"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/earmark_hashed_link](https://hexdocs.pm/earmark_hashed_link).
+## Usage
 
+```elixir
+markdown = "abc #hashedLink def\n`#hashedLink2 ghi`"
+{:ok, ast, []} = Earmark.as_ast(markdown)
+EarmarkHashedLink.add_hashed_link(ast) |> Earmark.Transform.transform() |> IO.puts()
+# <p>
+#   abc
+#   <a href="hashedLink">
+#     #hashedLink
+#   </a>
+#    def
+# <code class="inline">#hashedLink2 ghi</code></p>
+```
