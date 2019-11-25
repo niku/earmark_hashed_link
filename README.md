@@ -29,3 +29,7 @@ EarmarkHashedLink.add_hashed_link(ast) |> Earmark.Transform.transform() |> IO.pu
 #    def
 # <code class="inline">#hashedLink2 ghi</code></p>
 ```
+
+## LICENSE
+
+MIT. Check the [LICENSE](LICENSE) file for more information.
